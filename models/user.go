@@ -2,6 +2,7 @@ package models
 
 import (
 	"context"
+	"errors"
 	"issue-maintainer/db"
 	"issue-maintainer/utils"
 	"strings"
@@ -41,7 +42,7 @@ func (u *User) ValidateCredentials() (int64, error) {
 	err := row.Scan(&id, &password)
 
 	if err != nil {
-		return 0, err
+		return 0, errors.New("User not found")
 	}
 
 	err = utils.ComparePassword(u.Password, password)

@@ -46,14 +46,16 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	id, validationErr := user.ValidateCredentials()
+	userId, validationErr := user.ValidateCredentials()
 
 	if validationErr != nil {
-		ctx.JSON(http.StatusUnauthorized, "Unauthorized")
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"message": "Invalid credentials",
+		})
 		return
 	}
 
-	token, tokenErr := utils.GenerateJwtToken(user.Email, id)
+	token, tokenErr := utils.GenerateJwtToken(user.Email, userId)
 
 	if tokenErr != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{
