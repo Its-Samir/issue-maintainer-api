@@ -12,7 +12,7 @@ func InitDB() {
 	var err error
 
 	/* database url */
-	connString := "..."
+	connString := "postgresql://postgres:ghosty006@localhost:5432/issue-maintainer"
 
 	/* create a new pool */
 	DB, err = pgxpool.New(context.Background(), connString)
@@ -99,7 +99,7 @@ func createIssueTable() error {
 			description TEXT NOT NULL,
 			status issue_status DEFAULT 'open'::issue_status,
 			user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-			assigned_to_user_id INTEGER,
+			assigned_to_user_id INTEGER NOT NULL,
 			group_id INTEGER REFERENCES groups(id) ON DELETE CASCADE
 		)
 	`

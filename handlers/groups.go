@@ -39,6 +39,33 @@ func CreateGroup(ctx *gin.Context) {
 	})
 }
 
+func JoinGroup(ctx *gin.Context) {
+	groupId := ctx.Param("id")
+	parsedId, err := strconv.ParseInt(groupId, 10, 64)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "Could not parse the id",
+		})
+		return
+	}
+
+	userId := ctx.GetInt64("userId")
+
+	err = models.AddUserIntoGroup(userId, parsedId)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Could not create group",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, gin.H{
+		"message": "Group created",
+	})
+}
+
 func DeleteGroup(ctx *gin.Context) {
 	groupId := ctx.Param("id")
 	parsedId, err := strconv.ParseInt(groupId, 10, 64)

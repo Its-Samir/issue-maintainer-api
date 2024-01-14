@@ -31,6 +31,12 @@ func (u User) Save() error {
 	return err
 }
 
+func AddUserIntoGroup(id, groupId int64) error {
+	query := `UPDATE users SET group_id = $1 WHERE id = $2`
+	_, err := db.DB.Exec(context.Background(), query, groupId, id)
+	return err
+}
+
 /* validate the email or password */
 func (u *User) ValidateCredentials() (int64, error) {
 	query := `SELECT id, password FROM users WHERE email = $1`
