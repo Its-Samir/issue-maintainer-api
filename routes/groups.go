@@ -10,6 +10,8 @@ import (
 func RegisterGroupRoutes(server *gin.Engine) {
 	router := server
 
+	router.GET("/issues", handlers.GetFeaturedIssues)
+
 	router.POST("/groups", middleware.Authenticate, handlers.CreateGroup)
 	router.POST("/groups/:id", middleware.Authenticate, handlers.JoinGroup)
 	router.GET("/groups/:groupId/issues", handlers.GetIssues)

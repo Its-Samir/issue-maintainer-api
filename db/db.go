@@ -12,7 +12,7 @@ func InitDB() {
 	var err error
 
 	/* database url */
-	connString := "....."
+	connString := "..."
 
 	/* create a new pool */
 	DB, err = pgxpool.New(context.Background(), connString)

@@ -8,6 +8,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetFeaturedIssues(ctx *gin.Context) {
+	issues, err := models.GetFeaturedIssues()
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Could not get the issues",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"issues": issues,
+	})
+}
+
 func GetIssues(ctx *gin.Context) {
 	groupId := ctx.Param("groupId")
 	parsedGroupId, groupIdParsedErr := strconv.ParseInt(groupId, 10, 64)
@@ -22,7 +37,7 @@ func GetIssues(ctx *gin.Context) {
 	issues, err := models.GetAllIssues(parsedGroupId)
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
+		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Could not get the issues",
 		})
 		return
