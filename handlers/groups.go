@@ -45,7 +45,7 @@ func JoinGroup(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Could not parse the id",
+			"message": "Could not parse the groupId",
 		})
 		return
 	}
@@ -56,13 +56,13 @@ func JoinGroup(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"message": "Could not create group",
+			"message": "Could not add user into group",
 		})
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{
-		"message": "Group created",
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Joining into group successfull",
 	})
 }
 
@@ -72,7 +72,7 @@ func DeleteGroup(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Could not parse id",
+			"message": "Could not parse groupId",
 		})
 		return
 	}

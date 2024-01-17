@@ -29,7 +29,7 @@ func GetIssues(ctx *gin.Context) {
 
 	if groupIdParsedErr != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Could not parse issueId",
+			"message": "Could not parse groupId",
 		})
 		return
 	}
@@ -64,7 +64,7 @@ func GetIssue(ctx *gin.Context) {
 
 	if groupIdParsedErr != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Could not parse issueId",
+			"message": "Could not parse groupId",
 		})
 		return
 	}
@@ -100,7 +100,7 @@ func CreateIssue(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Could not parse id",
+			"message": "Could not parse groupId",
 		})
 		return
 	}

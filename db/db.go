@@ -12,7 +12,7 @@ func InitDB() {
 	var err error
 
 	/* database url */
-	connString := "..."
+	connString := "postgresql://postgres:ghosty006@localhost:5432/issue-maintainer"
 
 	/* create a new pool */
 	DB, err = pgxpool.New(context.Background(), connString)
