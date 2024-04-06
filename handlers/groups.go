@@ -22,7 +22,6 @@ func CreateGroup(ctx *gin.Context) {
 	/* get the userId we have set in the authentication middleware */
 	userId := ctx.GetInt64("userId")
 
-	/* assign the userId to the group's userId field, ensuring that it is the authenticated user */
 	group.UserId = userId
 
 	err = group.Save()
@@ -67,7 +66,7 @@ func JoinGroup(ctx *gin.Context) {
 }
 
 func DeleteGroup(ctx *gin.Context) {
-	groupId := ctx.Param("id")
+	groupId := ctx.Param("groupId")
 	parsedId, err := strconv.ParseInt(groupId, 10, 64)
 
 	if err != nil {

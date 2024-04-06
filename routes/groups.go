@@ -26,5 +26,5 @@ func RegisterGroupRoutes(server *gin.Engine) {
 
 	router.DELETE("/groups/:groupId/issues/:issueId", middleware.Authenticate, handlers.DeleteIssue)
 
-	router.DELETE("/groups/:id", middleware.Authenticate, handlers.DeleteGroup)
+	router.DELETE("/groups/:groupId", middleware.Authenticate, handlers.DeleteGroup)
 }
