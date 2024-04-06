@@ -186,3 +186,48 @@ func UpdateIssue(ctx *gin.Context) {
 		"message": "Issue updated",
 	})
 }
+
+func DeleteIssue(ctx *gin.Context) {
+	issueId := ctx.Param("issueId")
+	parsedIssueId, issueIdParsedErr := strconv.ParseInt(issueId, 10, 64)
+
+	if issueIdParsedErr != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "Could not parse issueId",
+		})
+		return
+	}
+
+	groupId := ctx.Param("groupId")
+
+	parsedGroupId, groupIdParsedErr := strconv.ParseInt(groupId, 10, 64)
+
+	if groupIdParsedErr != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "Could not parse groupId",
+		})
+		return
+	}
+
+	issue, err := models.GetIssueById(parsedIssueId, parsedGroupId)
+
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"message": "Issue not found",
+		})
+		return
+	}
+
+	err = models.DeleteIssueById(issue.Id)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Could not delete issue",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Issue deleted",
+	})
+}

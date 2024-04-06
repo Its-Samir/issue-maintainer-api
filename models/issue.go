@@ -92,3 +92,9 @@ func UpdateIssueById(id int64, updatedIssue Issue) error {
 	_, err := db.DB.Exec(context.Background(), query, updatedIssue.Title, updatedIssue.Description, updatedIssue.AssignedToUserId, id)
 	return err
 }
+
+func DeleteIssueById(id int64) error {
+	query := `DELETE FROM issues WHERE id = $1`
+	_, err := db.DB.Exec(context.Background(), query, id)
+	return err
+}
